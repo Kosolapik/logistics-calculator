@@ -1,0 +1,24 @@
+.form {
+    &__submit {
+        width: 15em;
+    }
+}
+
+.form-calculator {
+    display: flex;
+    flex-direction: column;
+    margin: 25px;
+
+    &__block {
+        display: flex;
+        flex-flow: row wrap;
+    }
+    &__title {
+        flex: 1 0 100%;
+    }
+    &__cell {
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+    }
+}
