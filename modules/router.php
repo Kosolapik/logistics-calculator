@@ -10,7 +10,10 @@ if ($request_path == '') {
     $controller->show();
 } else if ($request_path == 'api/calculator') {
     $controller = new \Controllers\Calculator();
-    $controller->show();
-} else {
+    $controller->sendData();
+} else if ($request_path == 'api/hints') {
+    $controller = new \Controllers\Calculator();
+    $controller->query();
+} /*else {
     throw new Page404Exception();
-}
+}*/

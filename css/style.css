@@ -492,55 +492,117 @@ progress {
 @font-face {
   font-family: Jura300;
   font-display: swap;
-  src: url("./fonts/Jura-Light.woff2") format("woff2"), url("./fonts/Jura-Light.woff") format("woff");
+  src: url("../fonts/Jura-Light.woff2") format("woff2"), url("../fonts/Jura-Light.woff") format("woff");
   font-style: normal;
 }
 @font-face {
   font-family: Jura400;
   font-display: swap;
-  src: url("./fonts/Jura-Regular.woff2") format("woff2"), url("./fonts/Jura-Regular.woff") format("woff");
+  src: url("../fonts/Jura-Regular.woff2") format("woff2"), url("../fonts/Jura-Regular.woff") format("woff");
   font-style: normal;
 }
 @font-face {
   font-family: Jura500;
   font-display: swap;
-  src: url("./fonts/Jura-Medium.woff2") format("woff2"), url("./fonts/Jura-Medium.woff") format("woff");
+  src: url("../fonts/Jura-Medium.woff2") format("woff2"), url("../fonts/Jura-Medium.woff") format("woff");
   font-style: normal;
 }
 @font-face {
   font-family: Jura600;
   font-display: swap;
-  src: url("./fonts/Jura-SemiBold.woff2") format("woff2"), url("./fonts/Jura-SemiBold.woff") format("woff");
+  src: url("../fonts/Jura-SemiBold.woff2") format("woff2"), url("../fonts/Jura-SemiBold.woff") format("woff");
   font-style: normal;
 }
 @font-face {
   font-family: Jura700;
   font-display: swap;
-  src: url("./fonts/Jura-Bold.woff2") format("woff2"), url("./fonts/Jura-Bold.woff") format("woff");
+  src: url("../fonts/Jura-Bold.woff2") format("woff2"), url("../fonts/Jura-Bold.woff") format("woff");
   font-style: normal;
 }
+.form__input {
+  border-radius: 5px;
+  border: none;
+  background-color: #e3e3e3;
+  padding: 5px 15px;
+}
+.form__input:focus {
+  outline-color: #8d6ed6c0;
+  outline-style: solid;
+  outline-offset: 1px;
+  outline-width: 1px;
+  background-color: white;
+}
 .form__submit {
-  width: 15em;
+  width: fit-content;
+  padding: 5px 25px;
+  border-radius: 5px;
+  border: none;
 }
 
 .form-calculator {
   display: flex;
   flex-direction: column;
-  margin: 25px;
+  border-radius: 10px;
+  padding: 50px;
+  box-shadow: 0 5px 25px 0 rgba(50, 50, 92, 0.15);
+  width: fit-content;
+  margin: 50px auto;
+  margin-top: 10px;
+}
+.form-calculator__submit {
+  width: 200px;
+  margin-top: 25px;
+  align-self: flex-end;
+  background-color: #8d6ed6c0;
+  font-family: Jura600;
+  color: white;
+}
+.form-calculator__submit:hover {
+  background-color: #8e6ed6;
+  border: none;
+  border-radius: 5px;
+  font-family: Jura700;
+  letter-spacing: 1px;
 }
 .form-calculator__block {
   display: flex;
   flex-flow: row wrap;
 }
-.form-calculator__title {
-  flex: 1 0 100%;
-}
 .form-calculator__cell {
   display: flex;
   flex-direction: column;
   margin: 10px;
+  justify-content: center;
+}
+.form-calculator__link-open-field {
+  text-decoration-line: underline;
+  margin-bottom: 0;
+  text-align: right;
+  font-size: 12px;
+  height: 39px;
+  line-height: 39px;
+  vertical-align: auto;
+}
+.form-calculator__link-open-field:hover {
+  cursor: pointer;
+  font-family: Jura700;
+  color: #8e6ed6;
+}
+.form-calculator input[name=from-region], .form-calculator input[name=where-region] {
+  margin-bottom: 5px;
+}
+
+.title-calculator {
+  text-align: center;
+  margin: 10px;
+  color: #8e6ed6;
+  font-family: Jura700;
 }
 
 body {
   font-family: Jura400;
+}
+
+.display_off {
+  display: none;
 }

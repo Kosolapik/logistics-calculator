@@ -6,9 +6,6 @@
                 extract($context);
                 require $base_path . '\modules\templates\\' . $template . '.php';
             }
-            static function context_append(array &$context) {
-                $context['__current_user'] = $this->current_user;
-            }
         }
     }
 ?>

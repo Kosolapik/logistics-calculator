@@ -9,21 +9,57 @@
 </head>
    <body>
       <main>
-         <h1>Расчёт стоимости доставки</h1>
+         <h1 class="title-h1 title-calculator">Расчёт стоимости доставки</h1>
          <form class="form form-calculator" method="post">
+            <h2 class="title-h2 form-calculator__title">Маршрут грузоперевозки</h2>
             <div class="form-calculator__block">
-               <h2 class="title-h2 form-calculator__title">Маршрут грузоперевозки</h2>
-               <div class="form-calculator__cell">
-                  <lable class="form__lable" for="from">От куда</lable>
-                  <input class="form__input" type="text" name="from" />
+               <div class="form-calculator__cell from-calculator__cell_from">
+                  <lable class="form__lable" for="from-locality">От куда</lable>
+                  <p class="form-calculator__link-open-field link_from-region" for="from-region">
+                     Уточнить регион
+                  </p>
+                  <input
+                     class="form__input display_off"
+                     type="text"
+                     placeholder="Регион"
+                     list="from-region"
+                     name="from-region"
+                  />
+                  <datalist id="from-region"></datalist>
+                  <input
+                     class="form__input"
+                     type="text"
+                     placeholder="Населённый пункт"
+                     list="from-locality"
+                     name="from-locality"
+                  />
+                  <datalist id="from-locality"></datalist>
                </div>
-               <div class="form-calculator__cell">
-                  <lable class="form__lable" for="where">Куда</lable>
-                  <input class="form__input" type="text" name="where" />
+               <div class="form-calculator__cell from-calculator__cell_where">
+                  <lable class="form__lable" for="where-region">Куда</lable>
+                  <p class="form-calculator__link-open-field link_where-region" for="where-region">
+                     Уточнить регион
+                  </p>
+                  <input
+                     class="form__input display_off"
+                     type="text"
+                     placeholder="Регион"
+                     list="where-region"
+                     name="where-region"
+                  />
+                  <datalist id="where-region"> </datalist>
+                  <input
+                     class="form__input"
+                     type="text"
+                     placeholder="Населённый пункт"
+                     list="where-locality"
+                     name="where-locality"
+                  />
+                  <datalist id="where-locality"> </datalist>
                </div>
             </div>
+            <h2 class="title-h2 form-calculator__title">Параметры груза</h2>
             <div class="form-calculator__block">
-               <h2 class="title-h2 form-calculator__title">Параметры груза</h2>
                <div class="form-calculator__cell">
                   <lable class="form__lable" for="weight">Общий вес, кг</lable>
                   <input class="form__input" type="number" step="0.1" name="weight" />
@@ -43,8 +79,8 @@
                   <input class="form__input" type="number" step="1" name="quantity" />
                </div>
             </div>
+            <h2 class="title-h2 form-calculator__title">Информация о грузе</h2>
             <div class="form-calculator__block">
-               <h2 class="title-h2 form-calculator__title">Информация о грузе</h2>
                <div class="form-calculator__cell">
                   <lable class="form__lable" for="price">Объявленная стоимость, ₽</lable>
                   <input class="form__input" type="number" step="500" name="price" />
@@ -55,9 +91,15 @@
                </div>
             </div>
             <div class="form-calculator__block"></div>
-            <input class="form__submit" type="submit" value="Расчитать" />
+            <input
+               class="form__submit form-calculator__submit"
+               type="submit"
+               value="Расчитать"
+            />
          </form>
+         <pre>
          <section class="showData"></section>
+         </pre>
       </main>
       <footer class="footer">
       </footer>

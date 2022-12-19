@@ -1,24 +1,77 @@
 .form {
-    &__submit {
-        width: 15em;
+
+    &__input {
+        border-radius: 5px;
+        border: none;
+        background-color: #e3e3e3;
+        padding: 5px 15px;
+        &:focus {
+            outline-color: #8d6ed6c0;
+            outline-style: solid;
+            outline-offset: 1px;
+            outline-width: 1px;
+            background-color: white;
+        }
     }
+    &__submit {
+        width: fit-content; 
+        padding: 5px 25px;
+        border-radius: 5px;
+        border: none;
+    }
+    
 }
 
 .form-calculator {
     display: flex;
     flex-direction: column;
-    margin: 25px;
+    border-radius: 10px;
+    padding: 50px;
+    box-shadow: 0 5px 25px 0 rgb(50 50 92 / 15%);
+    width: fit-content;
+    margin: 50px auto;
+    margin-top: 10px;
 
+    &__submit {
+        width: 200px;
+        margin-top: 25px;
+        align-self: flex-end;
+        background-color: #8d6ed6c0;
+        font-family: Jura600;
+        color: white;
+        &:hover {
+            background-color: #8e6ed6;
+            border: none;
+            border-radius: 5px;
+            font-family: Jura700;
+            letter-spacing: 1px;
+        }
+    }
     &__block {
         display: flex;
         flex-flow: row wrap;
-    }
-    &__title {
-        flex: 1 0 100%;
     }
     &__cell {
         display: flex;
         flex-direction: column;
         margin: 10px;
+        justify-content: center;
+    }
+    &__link-open-field {
+        text-decoration-line: underline;
+        margin-bottom: 0;
+        text-align: right;
+        font-size: 12px;
+        height: 39px;
+        line-height: 39px;
+        vertical-align: auto;
+        &:hover {
+            cursor: pointer;
+            font-family: Jura700;
+            color: #8e6ed6;
+        }
+    }
+    input[name="from-region"], input[name="where-region"] {
+        margin-bottom: 5px;
     }
 }
