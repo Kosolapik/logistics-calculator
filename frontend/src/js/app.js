@@ -1,6 +1,17 @@
-import {getDataForm} from './modules/send-calculator-form.js';
-import {openFieldForm} from './modules/open-field-form.js';
+// import {outputHints} from './modules/calculator-form.js';
 
-getDataForm('.form-calculator');
-openFieldForm('.link_where-region', 'where-region');
-openFieldForm('.link_from-region', 'from-region');
+// outputHints('.form__cell_from');
+// // getDataForm('.form-calculator');
+
+
+function openFild(select) {
+    let block = document.querySelector(select);
+    let link = block.querySelector('.form__link');
+    let fild = block.querySelector('.form__input');
+
+    link.addEventListener('click', (e) => {
+        link.classList.add('display-off');
+        fild.classList.remove('display-off');
+    });
+}
+openFild('.form__cell_from');

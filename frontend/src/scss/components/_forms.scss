@@ -1,12 +1,30 @@
 .form {
-
+    &__block {
+        display: flex;
+        flex-flow: row wrap;
+        &_column {
+            display: flex;
+            flex-flow: column;
+        }
+    }
+    &__cell {
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+        justify-content: center;
+        position: relative;
+    }
+    &__lable {
+        margin-bottom: 1px;
+    }
     &__input {
         border-radius: 5px;
         border: none;
         background-color: #e3e3e3;
         padding: 5px 15px;
+        margin-bottom: 5px;
         &:focus {
-            outline-color: #8d6ed6c0;
+            outline-color: #8d6ed6;
             outline-style: solid;
             outline-offset: 1px;
             outline-width: 1px;
@@ -19,7 +37,44 @@
         border-radius: 5px;
         border: none;
     }
-    
+    &__hints {
+        z-index: 1;
+        background-color: #8d6ed6;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 60px;
+        border-radius: 10px;
+        height: fit-content;
+        max-height: 300px;
+        overflow: auto;
+        &-element {
+            margin: 10px;
+            color: white;
+            border-bottom: #e3e3e3 1px solid;
+            &:hover {
+                font-family: Jura700;
+                cursor: pointer;
+                border-bottom: #e3e3e3 1px solid;
+            }
+        }
+    }
+    &__link {
+        margin: 0;
+        font-size: 13px;
+        font-family: Jura300;
+        width: fit-content;
+        height: 39px;
+        line-height: 39px;
+        vertical-align: bottom;
+        // margin-bottom: 5px;
+        &:hover {
+            cursor: pointer;
+            font-family: Jura700;
+            color: #8d6ed6;
+            text-decoration: underline;
+        }
+    }
 }
 
 .form-calculator {
@@ -46,32 +101,5 @@
             font-family: Jura700;
             letter-spacing: 1px;
         }
-    }
-    &__block {
-        display: flex;
-        flex-flow: row wrap;
-    }
-    &__cell {
-        display: flex;
-        flex-direction: column;
-        margin: 10px;
-        justify-content: center;
-    }
-    &__link-open-field {
-        text-decoration-line: underline;
-        margin-bottom: 0;
-        text-align: right;
-        font-size: 12px;
-        height: 39px;
-        line-height: 39px;
-        vertical-align: auto;
-        &:hover {
-            cursor: pointer;
-            font-family: Jura700;
-            color: #8e6ed6;
-        }
-    }
-    input[name="from-region"], input[name="where-region"] {
-        margin-bottom: 5px;
     }
 }

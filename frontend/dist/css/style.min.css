@@ -519,14 +519,33 @@ progress {
   src: url("../fonts/Jura-Bold.woff2") format("woff2"), url("../fonts/Jura-Bold.woff") format("woff");
   font-style: normal;
 }
+.form__block {
+  display: flex;
+  flex-flow: row wrap;
+}
+.form__block_column {
+  display: flex;
+  flex-flow: column;
+}
+.form__cell {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  justify-content: center;
+  position: relative;
+}
+.form__lable {
+  margin-bottom: 1px;
+}
 .form__input {
   border-radius: 5px;
   border: none;
   background-color: #e3e3e3;
   padding: 5px 15px;
+  margin-bottom: 5px;
 }
 .form__input:focus {
-  outline-color: #8d6ed6c0;
+  outline-color: #8d6ed6;
   outline-style: solid;
   outline-offset: 1px;
   outline-width: 1px;
@@ -537,6 +556,43 @@ progress {
   padding: 5px 25px;
   border-radius: 5px;
   border: none;
+}
+.form__hints {
+  z-index: 1;
+  background-color: #8d6ed6;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 60px;
+  border-radius: 10px;
+  height: fit-content;
+  max-height: 300px;
+  overflow: auto;
+}
+.form__hints-element {
+  margin: 10px;
+  color: white;
+  border-bottom: #e3e3e3 1px solid;
+}
+.form__hints-element:hover {
+  font-family: Jura700;
+  cursor: pointer;
+  border-bottom: #e3e3e3 1px solid;
+}
+.form__link {
+  margin: 0;
+  font-size: 13px;
+  font-family: Jura300;
+  width: fit-content;
+  height: 39px;
+  line-height: 39px;
+  vertical-align: bottom;
+}
+.form__link:hover {
+  cursor: pointer;
+  font-family: Jura700;
+  color: #8d6ed6;
+  text-decoration: underline;
 }
 
 .form-calculator {
@@ -563,33 +619,6 @@ progress {
   border-radius: 5px;
   font-family: Jura700;
   letter-spacing: 1px;
-}
-.form-calculator__block {
-  display: flex;
-  flex-flow: row wrap;
-}
-.form-calculator__cell {
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-  justify-content: center;
-}
-.form-calculator__link-open-field {
-  text-decoration-line: underline;
-  margin-bottom: 0;
-  text-align: right;
-  font-size: 12px;
-  height: 39px;
-  line-height: 39px;
-  vertical-align: auto;
-}
-.form-calculator__link-open-field:hover {
-  cursor: pointer;
-  font-family: Jura700;
-  color: #8e6ed6;
-}
-.form-calculator input[name=from-region], .form-calculator input[name=where-region] {
-  margin-bottom: 5px;
 }
 
 .title-calculator {
