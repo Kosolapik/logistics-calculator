@@ -15,39 +15,47 @@
    <div class="form__block_column">
       <div class="form__cell form__cell_from">
          <lable class="form__lable" for="from-locality">От куда</lable>
-         <p class="form__link">Уточнить регион</p>
-         <input
-            class="form__input display_off"
-            type="text"
-            placeholder="Регион"
-            name="from-region"
-         />
-         <div class="form__hints form__hints_region"></div>
-         <input
-            class="form__input"
-            type="text"
-            placeholder="Населённый пункт"
-            name="from-locality"
-         />
-         <div class="form__hints form__hints_locality"></div>
+         <div class="form__inner form__inner_region">
+            <p class="form__link">Уточнить регион</p>
+            <input
+               class="form__input form__input_region display_off"
+               type="text"
+               placeholder="Регион"
+               name="from-region"
+            />
+            <div class="form__hints form__hints_region"></div>
+         </div>
+         <div class="form__inner form__inner_locality">
+            <input
+               class="form__input form__input_locality"
+               type="text"
+               placeholder="Населённый пункт"
+               name="from-locality"
+            />
+            <div class="form__hints form__hints_locality"></div>
+         </div>
       </div>
       <div class="form__cell form__cell_where">
          <lable class="form__lable" for="where-locality">Куда</lable>
-         <!-- <p class="form__link">Уточнить регион</p> -->
-         <input
-            class="form__input"
-            type="text"
-            placeholder="Регион"
-            name="where-region"
-         />
-         <div class="form__hints form__hints_region"></div>
-         <input
-            class="form__input"
-            type="text"
-            placeholder="Населённый пункт"
-            name="where-locality"
-         />
-         <div class="form__hints form__hints_locality"></div>
+         <div class="form__inner form__inner_region">
+            <p class="form__link">Уточнить регион</p>
+            <input
+               class="form__input form__input_region display_off"
+               type="text"
+               placeholder="Регион"
+               name="where-region"
+            />
+            <div class="form__hints form__hints_region"></div>
+         </div>
+         <div class="form__inner form__inner_locality">
+            <input
+               class="form__input form__input_locality"
+               type="text"
+               placeholder="Населённый пункт"
+               name="where-locality"
+            />
+            <div class="form__hints form__hints_locality"></div>
+         </div>
       </div>
    </div>
    <h2 class="title-h2 form__title">Параметры груза</h2>

@@ -534,6 +534,11 @@ progress {
   justify-content: center;
   position: relative;
 }
+.form__inner {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+}
 .form__lable {
   margin-bottom: 1px;
 }
@@ -563,7 +568,7 @@ progress {
   position: absolute;
   left: 0;
   right: 0;
-  top: 60px;
+  top: 36px;
   border-radius: 10px;
   height: fit-content;
   max-height: 300px;
