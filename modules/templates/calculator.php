@@ -10,7 +10,7 @@
    <body>
       <main>
          <h1 class="title-h1 title-calculator">Расчёт стоимости доставки</h1>
-         <form class="form form-calculator" method="post">
+         <form class="form form-calculator" id="form-calculator" method="post">
             <h2 class="title-h2 form__title">Маршрут грузоперевозки</h2>
             <div class="form__block_column">
                <div class="form__cell form__cell_from">

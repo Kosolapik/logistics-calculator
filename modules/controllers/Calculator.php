@@ -30,7 +30,8 @@
                         'query' => $_GET['query'],
                         'contentType' => $_GET['contentType'],
                         'withParent' => $_GET['withParent'],
-                        'limit' => $_GET['limit']
+                        'limit' => $_GET['limit'],
+                        'regionId' => $_GET['regionId']
                     ];
                     
                     $headers = [
