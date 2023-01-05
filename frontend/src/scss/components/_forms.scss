@@ -87,7 +87,8 @@
     flex-direction: column;
     border-radius: 10px;
     padding: 50px;
-    box-shadow: 0 5px 25px 0 rgb(50 50 92 / 15%);
+    background-color: $color3;
+    box-shadow: 0 5px 25px 0 $color2;
     width: fit-content;
     margin: 50px auto;
     margin-top: 10px;
@@ -96,11 +97,14 @@
         width: 200px;
         margin-top: 25px;
         align-self: flex-end;
-        background-color: #8d6ed6c0;
-        font-family: Jura600;
-        color: white;
+        background-color: $color2;
+        color: $color1;
+        box-shadow: 0 5px 15px 0 $color4;
+        font-family: Jura500;
         &:hover {
-            background-color: #8e6ed6;
+            background-color: $color3;
+            color: $color1;
+            box-shadow: 0 5px 25px 0 $color2;
             border: none;
             border-radius: 5px;
             font-family: Jura700;
