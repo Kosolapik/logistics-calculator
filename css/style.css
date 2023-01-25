@@ -545,12 +545,12 @@ progress {
 .form__input {
   border-radius: 5px;
   border: none;
-  background-color: #e3e3e3;
+  background-color: #EEF2FB;
   padding: 5px 15px;
   margin-bottom: 5px;
 }
 .form__input:focus {
-  outline-color: #8d6ed6;
+  outline-color: #364F53;
   outline-style: solid;
   outline-offset: 1px;
   outline-width: 1px;
@@ -564,7 +564,7 @@ progress {
 }
 .form__hints {
   z-index: 1;
-  background-color: #8d6ed6;
+  background-color: #364F53;
   position: absolute;
   left: 0;
   right: 0;
@@ -577,12 +577,12 @@ progress {
 .form__hints-element {
   margin: 10px;
   color: white;
-  border-bottom: #e3e3e3 1px solid;
+  border-bottom: #EEF2FB 1px solid;
 }
 .form__hints-element:hover {
   font-family: Jura700;
   cursor: pointer;
-  border-bottom: #e3e3e3 1px solid;
+  border-bottom: #EEF2FB 1px solid;
 }
 .form__link {
   margin: 0;
@@ -596,7 +596,7 @@ progress {
 .form__link:hover {
   cursor: pointer;
   font-family: Jura700;
-  color: #8d6ed6;
+  color: #EEF2FB;
   text-decoration: underline;
 }
 
@@ -621,20 +621,31 @@ progress {
   font-family: Jura500;
 }
 .form-calculator__submit:hover {
-  background-color: #517970;
+  background-color: #364F53;
   color: #EEF2FB;
-  box-shadow: 0 5px 25px 0 #84A98D;
+  box-shadow: 0px 1px 15px 0 #EEF2FB;
   border: none;
   border-radius: 5px;
   font-family: Jura700;
   letter-spacing: 1px;
 }
 
-.title-calculator {
+.title-h1 {
   text-align: center;
   margin: 10px;
   color: #364F53;
   font-family: Jura700;
+}
+
+.showData {
+  border: 1px #364F53 solid;
+  border-radius: 10px;
+  margin: auto;
+  width: 1008px;
+  height: fit-content;
+  min-height: 300px;
+  background-color: #364F53;
+  padding: 10px;
 }
 
 body {
@@ -645,4 +656,7 @@ body {
 
 .display_off {
   display: none;
+}
+.red {
+  background-color: red;
 }

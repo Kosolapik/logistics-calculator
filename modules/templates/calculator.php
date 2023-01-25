@@ -10,7 +10,7 @@
    <body>
       <main>
          <h1 class="title-h1 title-calculator">Расчёт стоимости доставки</h1>
-         <form class="form form-calculator" id="form-calculator" method="post">
+         <form class="form form-calculator" id="form-calculator" name="formcalculator" method="post">
             <h2 class="title-h2 form__title">Маршрут грузоперевозки</h2>
             <div class="form__block form__block_column">
                <div class="form__cell form__cell_from">
@@ -104,5 +104,5 @@
       <footer class="footer">
       </footer>
    </body>
-   <script src="js/app.min.js"></script>
+   <script src="js/calculator.js"></script>
 </html>

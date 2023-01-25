@@ -1,4 +1,5 @@
 <?php
+    ini_set('max_execution_time', 300); // Установка лимита времени исполнения скрипта
     class CurlWrapper {
 
         public $headers = [];
@@ -9,9 +10,8 @@
     
         public function sendRequest(string $method, string $url = '', array $params = []) {
             if ($url === '' || $url === null || $url === false) {
-                echo 'Укажите URL-адрес запроса';
+                return 'Укажите URL-адрес запроса';
             } 
-    
             if ($method == 'get') {
                 $ch = curl_init($url . '?' . http_build_query($params));
             } else if ($method == 'post') {
@@ -24,21 +24,14 @@
                 curl_setopt($ch, CURLOPT_POST, true);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params, JSON_UNESCAPED_UNICODE));
             }
-    
             if ($this->headers !== '' && $this->headers !== null && $this->headers !== false) {
                 curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
             }
-            
             curl_setopt($ch, CURLOPT_HEADER, false);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             $result = curl_exec($ch);
             curl_close($ch);
-
-            // Декодируем полученные данные от ПЭКа и кодируем обратно в JSON с поддержкой кирилицы. Устанавливаем в заголовок ответа информацию о JSON отправке формата и отправляем. 
-            $result = json_decode($result, true);
-            header('Content-Type:application/json');
-            // $result = json_encode($result, JSON_UNESCAPED_UNICODE);
             return $result;
         }
     }
