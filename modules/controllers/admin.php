@@ -1,6 +1,5 @@
 <?php
     namespace Controllers {
-        require_once 'modules\curlWrapper.php';
         class Admin extends Controller {
     
             function show() {
@@ -28,6 +27,16 @@
                 // /* Close the streams */
                 // fclose($fp);
                 // fclose($putdata);
+            }
+
+            function addPecRecord() {
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    $data = file_get_contents('php://input');
+                    $data = json_decode($data, true);
+                    $data_base = new \Models\DataBases\Localities();
+                    $id = $data_base->insert($data);
+                    echo ($id);
+                }
             }
         }
     }

@@ -17,6 +17,12 @@ if ($request_path == '') {
 } else if ($request_path == 'api/pec/cities') {
     $controller = new \Controllers\Admin();
     $controller->compareCitiesPec();
+} else if ($request_path == 'admin/pec/add') {
+    $controller = new \Controllers\Admin();
+    $controller->addPecRecord();
+}  else if ($request_path == 'api/calculate-delivery') {
+    $controller = new \Controllers\Calculator();
+    $controller->calculateDelivery();
 }/*else {
     throw new Page404Exception();
 }*/

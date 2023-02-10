@@ -641,9 +641,103 @@ progress {
   border: 1px #364F53 solid;
   border-radius: 10px;
   margin: auto;
-  width: 1008px;
+  max-width: 1008px;
+  width: auto;
   height: fit-content;
   min-height: 300px;
+  background-color: #364F53;
+  padding: 10px 25px;
+}
+
+.cell-data {
+  border-bottom: 1px solid #84A98D;
+  border-top: 1px solid #84A98D;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 10px auto;
+  display: flex;
+}
+.cell-data__block-info {
+  width: 55%;
+}
+.cell-data__block-button {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+.cell-data__button {
+  background-color: #517970;
+  border-radius: 5px;
+  padding: 5px 15px;
+  margin: 5px;
+  text-align: center;
+  min-width: 225px;
+}
+.cell-data__button:hover {
+  cursor: pointer;
+  font-family: Jura700;
+}
+.cell-data__title {
+  display: flex;
+  padding: 5px;
+}
+.cell-data__subtitle {
+  display: flex;
+  padding: 5px;
+  margin: 5px;
+}
+.cell-data__subtitle_city-pec {
+  font-family: Jura700;
+  color: #EEF2FB;
+}
+.cell-data__subtitle_city-pec-off {
+  font-family: Jura300;
+  color: #84A98D;
+}
+.cell-data__subtitle_database {
+  font-family: Jura700;
+}
+.cell-data__subtitle_database-off {
+  font-family: Jura300;
+  color: #84A98D;
+}
+.cell-data__options-block {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+.cell-data__option {
+  display: flex;
+  flex-direction: row;
+  color: #EEF2FB;
+  border-bottom: 1px solid #517970;
+  border-top: 1px solid #517970;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+}
+.cell-data__option-input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+.cell-data__option-input:checked + .cell-data__option-label::before {
+  background-color: #517970;
+  background-image: url(../../images/checkmark.svg);
+}
+.cell-data__option-label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.cell-data__option-label::before {
+  content: "";
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #EEF2FB;
+  border-radius: 5px;
+  margin: 0px 10px;
 }
 
 body {

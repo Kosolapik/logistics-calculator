@@ -194,29 +194,17 @@ function sendForm(selectForm) {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         let ajax = new XMLHttpRequest();
-        ajax.open("get", "http://logist-master/api/pec/cities");
+        ajax.open("post", "http://logist-master/api/calculate-delivery");
         // ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         ajax.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
+                console.log(this.response);
                 let res = JSON.parse(this.response);
-                // let res = (this.response);
-                // let screen = document.querySelector('.showData');
-                // let div = document.createElement('div');
-                // screen.append(div);
-                // let i = 1;
-                // for (let key in res) {
-                //     div.innerText += `${i++} ${key}\r\n`;
-                // }
                 console.log(res);
             }
-        },
-        // function processingObject(selectObject) {
-        //     for (let key in selectObject) {
-        //         div.innerText = `${key}=${selectObject[key]}`;
-        //     }
-        // }
-        ajax.send();
-        // ajax.send(formDataCalculator);
+        };
+        let data = JSON.stringify(formDataCalculator);
+        ajax.send(data);
     })
 }
 sendForm('#form-calculator');

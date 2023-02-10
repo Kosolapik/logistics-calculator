@@ -1,8 +1,111 @@
 .showData {
-    border: 1px $color4 solid;
+    border: 1px #364F53 solid;
     border-radius: 10px;
     margin: auto;
-    width: 1008px;
+    max-width: 1008px;
+    width: auto;
     height: fit-content;
     min-height: 300px;
+    background-color: #364F53;
+    padding: 10px 25px;
+}
+
+.cell-data {
+    border-bottom: 1px solid $color2;
+    border-top: 1px solid $color2;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 10px auto;
+    display: flex;
+
+    &__block-info {
+        width: 55%;
+    }
+    &__block-button {
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+    }
+
+    &__button {
+        background-color: $color3;
+        border-radius: 5px;
+        padding: 5px 15px;
+        margin: 5px;
+        text-align: center;
+        min-width: 225px;
+        &:hover {
+            cursor: pointer;
+            font-family: $fontMain700;
+        }
+    }
+
+    &__title {
+        display: flex;
+        // border: 1px solid $color3;
+        padding: 5px;
+    }
+    &__subtitle {
+        display: flex;
+        // border: 1px solid $color3;
+        padding: 5px;
+        margin: 5px;
+
+            &_city-pec {
+                font-family: $fontMain700;
+                color: $color1;
+                &-off {
+                    font-family: $fontMain300;
+                    color: $color2;
+                }
+            }
+            &_database {
+                font-family: $fontMain700;
+                &-off {
+                    font-family: $fontMain300;
+                    color: $color2;
+                }
+            }
+    }
+
+    &__options-block {
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+    }
+
+    &__option {
+        display: flex;
+        flex-direction: row;
+        color: $color1;
+        border-bottom: 1px solid $color3;
+        border-top: 1px solid $color3;
+        border-radius: 5px;
+        padding: 5px;   
+        margin: 5px;
+
+        &-input {
+            position: absolute;
+            z-index: -1;
+            opacity: 0;
+            &:checked+.cell-data__option-label::before {
+                background-color: $color3;
+                background-image: url(../../images/checkmark.svg);
+            }
+        }
+        &-label {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            &::before {
+                content: "";
+                position: relative;
+                width: 20px;
+                height: 20px;
+                border: 1px solid $color1;
+                border-radius: 5px;
+                margin: 0px 10px;
+            }
+        }
+    }
 }

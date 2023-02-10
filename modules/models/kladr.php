@@ -1,8 +1,6 @@
 <?php
     namespace Models {
-        require_once 'modules\curlWrapper.php';
         class Kladr {
-
             /*
                 Метод для получения списка данных (города, регионы, улицы и т.д).
                 В качестве параметра получает масив с параметрами запроса. 

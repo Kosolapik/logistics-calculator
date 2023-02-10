@@ -68,7 +68,7 @@
                   <lable class="form__lable" for="volume"
                      >Общий объём, м<sup><small>3</small></sup></lable
                   >
-                  <input class="form__input" type="number" step="0.1" name="volume" />
+                  <input class="form__input" type="number" step="0.001" name="volume" />
                </div>
                <div class="form__cell">
                   <lable class="form__lable" for="max-size">Макс. габарит, м</lable>

@@ -1,6 +1,5 @@
 <?php
     namespace Controllers {
-        require_once 'modules\curlWrapper.php';
         class Calculator extends Controller {
     
             function show() {
@@ -20,6 +19,22 @@
                     $kladr = new \Models\Kladr();
                     $hints = $kladr->requestToKladr($_POST); // JSON дынные от kladr
                     echo $hints;
+                }
+            }
+
+            function calculateDelivery() {
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    $dataForm = file_get_contents('php://input');
+                    $dataForm = json_decode($dataForm, true);
+
+                    $pec = new \Models\Pec();
+                    $culcPec = $pec->calculateDelivery($dataForm);
+                    $arrCulc = [
+                        'pec' => $culcPec
+                    ];
+                    
+                    $arrCulc = json_encode($arrCulc, JSON_UNESCAPED_UNICODE);
+                    echo $arrCulc;
                 }
             }
         }

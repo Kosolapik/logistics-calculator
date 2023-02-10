@@ -12,16 +12,7 @@
          <h1 class="title-h1">Кабинет администратора</h1>
          <button class="button button__pec">Сопоставить города ПЭКа</button>
             <section class="showData">
-                <pre>
-                    <?php
-                        if ($cities) {
-                            echo count($cities) . '<br>';
-                            print_r ($cities); 
-                        } else {
-                            print_r ('Данных нет');
-                        }
-                    ?>
-                </pre>
+                
             </section>
       </main>
       <footer class="footer">

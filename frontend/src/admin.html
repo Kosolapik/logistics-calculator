@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ru">
+   @@include('html/head.html', { 'title': 'Админ панель' })
+   <body>
+      <main>
+         <main>
+            <h1 class="title-h1">Кабинет администратора</h1>
+            @@include('html/admin/buttons.html', {})
+            <section class="showData">
+               @@include('html/admin/cities-pec.html', {})
+            </section>
+         </main>
+      </main>
+      @@include('html/footer.html', {})
+   </body>
+   <script src="js/app.min.js"></script>
+</html>
