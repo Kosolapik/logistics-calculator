@@ -47,8 +47,6 @@ class DataBase  {
     // ];
 
     function run($sql_str, $values = NULL) {
-        // print_r($sql_str);
-        // print_r($values);
         if ($this->query) {
             $this->query->closeCursor();
             // print_r("приложение очистилось \n");
@@ -78,6 +76,8 @@ class DataBase  {
                     // print_r(":" . $name_param . ' ' . $value . ' ' . $type_param);
             }
         }
+        // var_dump($sql_str);
+        // var_dump($values);
         $this->query->execute();
         // $this->query->closeCursor();
         // var_dump($this->query->fetch(\PDO::FETCH_ASSOC));
@@ -137,6 +137,7 @@ class DataBase  {
         }
         $sql_str .= ';';
         // echo $sql_str;
+        $this->run($sql_str, $sql["values"]);
         return $this->run($sql_str, $sql["values"]);
     }
 
@@ -144,26 +145,26 @@ class DataBase  {
         Методы интерфейса Iterator.
         В них будет выполняться выборка записей из результата выполнения запроса.
     */
-    // private $record = FALSE; // Переменная для хранения массива со значениями очередной извлечённой записи.
-    // function current() {
-    //     return $this->record;
-    // }
+    private $record = FALSE; // Переменная для хранения массива со значениями очередной извлечённой записи.
+    function current() {
+        return $this->record;
+    }
 
-    // function key() {
-    //     return 0;
-    // }
+    function key() {
+        return 0;
+    }
 
-    // function next() {
-    //     $this->record = $this->query->fetch(\PDO::FETCH_ASSOC);
-    // }
+    function next() {
+        $this->record = $this->query->fetch(\PDO::FETCH_ASSOC);
+    }
 
-    // function rewind() {
-    //     $this->record = $this->query->fetch(\PDO::FETCH_ASSOC);
-    // }
+    function rewind() {
+        $this->record = $this->query->fetch(\PDO::FETCH_ASSOC);
+    }
 
-    // function valid() {
-    //     return $this->record !== FALSE;
-    // }
+    function valid() {
+        return $this->record !== FALSE;
+    }
 
     protected function before_insert(&$values) {}
     function insert(array $values) {
@@ -194,7 +195,7 @@ class DataBase  {
         string $value_field, 
         string $key_field = 'id'
     ) {
-        static::before_update($fields, $value_field, $key_field);
+        static::before_update($values, $value_field, $key_field);
         $sql_str = 'UPDATE ' . static::TABLE_NAME . ' SET ';
         $filds_str = '';
         foreach ($values as $n => $v) {
@@ -205,7 +206,11 @@ class DataBase  {
         }
         $sql_str .= $filds_str . ' WHERE ' . $key_field . ' = :__key;';
         $values['__key'] = $value_field;
-        $this->run($sql_str, $values);
+        // print_r($values);
+        // print_r($sql_str);
+        // print_r("\n \n");
+       $res = $this->run($sql_str, $values);
+       return $res->rowCount();
     }
 
     protected function before_delete(

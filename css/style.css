@@ -688,11 +688,11 @@ progress {
   padding: 5px;
   margin: 5px;
 }
-.cell-data__subtitle_city-pec {
+.cell-data__subtitle_city {
   font-family: Jura700;
   color: #EEF2FB;
 }
-.cell-data__subtitle_city-pec-off {
+.cell-data__subtitle_city-off {
   font-family: Jura300;
   color: #84A98D;
 }

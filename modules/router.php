@@ -20,9 +20,12 @@ if ($request_path == '') {
 } else if ($request_path == 'admin/pec/add') {
     $controller = new \Controllers\Admin();
     $controller->addPecRecord();
-}  else if ($request_path == 'api/calculate-delivery') {
+} else if ($request_path == 'api/calculate-delivery') {
     $controller = new \Controllers\Calculator();
     $controller->calculateDelivery();
-}/*else {
+} else if ($request_path == 'api/kit/cities') {
+    $controller = new \Controllers\Admin();
+    $controller->compareCitiesKit();
+} /*else {
     throw new Page404Exception();
 }*/

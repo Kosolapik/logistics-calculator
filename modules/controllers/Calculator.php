@@ -32,6 +32,10 @@
                     $arrCulc = [
                         'pec' => $culcPec
                     ];
+
+                    // $kit = new \Models\Kit();
+                    // $cityKit = $kit->getCitiesList();
+                    // $arrCulc['kit'] = $cityKit;
                     
                     $arrCulc = json_encode($arrCulc, JSON_UNESCAPED_UNICODE);
                     echo $arrCulc;

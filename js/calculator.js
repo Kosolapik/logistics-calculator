@@ -99,6 +99,7 @@ function processingRouteFields(selectCell) {
                 ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 ajax.onload = function () {
                     if (this.readyState == 4 && this.status == 200) {
+                        // console.log(this.response);
                         cleanHints(blockHints);
                         let res = JSON.parse(this.response)['result'];
                         for (let i = 1; i < res.length; i++) {
@@ -195,7 +196,6 @@ function sendForm(selectForm) {
         e.preventDefault();
         let ajax = new XMLHttpRequest();
         ajax.open("post", "http://logist-master/api/calculate-delivery");
-        // ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         ajax.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 console.log(this.response);
