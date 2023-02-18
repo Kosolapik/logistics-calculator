@@ -8,24 +8,27 @@
             $this->headers = $headers;
         }
     
-        public function sendRequest(string $method, string $url = '', array $params = []) {
+        public function sendRequest(string $method, string $url = '', array $data = [], array $params = []) {
             if ($url === '' || $url === null || $url === false) {
                 return 'Укажите URL-адрес запроса';
             } 
             if ($method == 'get') {
-                $ch = curl_init($url . '?' . http_build_query($params));
+                $ch = curl_init($url . '?' . http_build_query($data));
             } else if ($method == 'post') {
                 $ch = curl_init($url);
                 curl_setopt($ch, CURLOPT_POST, true);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
+                curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
             } else if ($method == 'json') {
                 $ch = curl_init($url);
                 $this->headers[] = 'Content-Type:application/json';
                 curl_setopt($ch, CURLOPT_POST, true);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params, JSON_UNESCAPED_UNICODE));
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data, JSON_UNESCAPED_UNICODE));
             }
             if ($this->headers !== '' && $this->headers !== null && $this->headers !== false) {
                 curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
+            }
+            if ($params != []) {
+                curl_setopt_array($ch, $params);
             }
             curl_setopt($ch, CURLOPT_HEADER, false);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -34,5 +37,9 @@
             curl_close($ch);
             return $result;
         }
+
+        function close() {
+
+        } 
     }
 ?>

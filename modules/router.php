@@ -14,18 +14,21 @@ if ($request_path == '') {
 } else if ($request_path == 'admin') {
     $controller = new \Controllers\Admin();
     $controller->show();
-} else if ($request_path == 'api/pec/cities') {
+} else if ($request_path == 'api/pec/get_cities') {
     $controller = new \Controllers\Admin();
-    $controller->compareCitiesPec();
-} else if ($request_path == 'admin/pec/add') {
+    $controller->pecGetCitiesAll();
+} else if ($request_path == 'api/pec/add_idkladr') {
     $controller = new \Controllers\Admin();
     $controller->addPecRecord();
 } else if ($request_path == 'api/calculate-delivery') {
     $controller = new \Controllers\Calculator();
     $controller->calculateDelivery();
-} else if ($request_path == 'api/kit/cities') {
+} else if ($request_path == 'api/kit/get_cities') {
     $controller = new \Controllers\Admin();
-    $controller->compareCitiesKit();
+    $controller->kitGetCitiesAll();
+} else if ($request_path == 'api/kit/add_idkladr') {
+    $controller = new \Controllers\Admin();
+    $controller->addKitRecord();
 } /*else {
     throw new Page404Exception();
 }*/

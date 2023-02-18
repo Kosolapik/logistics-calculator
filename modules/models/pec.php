@@ -1,74 +1,141 @@
 <?php
     namespace Models {
-        class Pec {
-            /*
-            Метод возвращает array "грязный" список городов ПЭКа
-            */
-            function getListCities() {
-                $curl = new \CurlWrapper();
-                $cities = $curl->sendRequest('get', 'https://pecom.ru/ru/calc/towns.php'); // JSON "грязный" список городов ПЭКа
-                $cities = json_decode($cities, true); // array "грязный" список городов
-                return $cities;
+        class Pec
+        {
+            /**
+             * Имя пользователя
+             * @var string
+             */
+            private $login = 'sana.kosolapov';
+            /**
+             * Ключ доступа к API
+             * @var string
+             */
+            private $key = '546F0A6273DD3EE5B22A0276C5317A322BDDA693';
+            /**
+             * Базовый URL
+             * @var string
+             */
+            private $url = 'https://kabinet.pecom.ru/api/v1/';
+
+            /**
+             * выполняет запрос в ПЭК
+             * @param string $controller Название группы
+             * @param string $action Название метода
+             * @param array $data Входящие данные запроса
+             * @return array Возвращает массив с ответом ПЭКа
+             */
+            private function call($controller, $action, $data = []) {
+                $headers = [
+                    'Content-Type: application/json; charset=utf-8',
+                ];
+                $params = [
+                    CURLOPT_RETURNTRANSFER => TRUE,
+                    CURLOPT_POST => TRUE,
+                    CURLOPT_SSL_VERIFYPEER => TRUE,
+                    CURLOPT_SSL_VERIFYHOST => 2,
+                    CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
+                    CURLOPT_USERPWD => sprintf('%s:%s', $this->login, $this->key),
+                ];
+                $curl = new \CurlWrapper($headers);
+                $res = $curl->sendRequest('post', "{$this->url}/{$controller}/{$action}", [], $params);
+                $res = json_decode($res, true);
+                return $res;
             }
 
+            /**
+             * запрашивает у ПЭКа полный массив городов
+             * @return array возвращает массив с "чистым" списком городов России
+             */
+            function getCitiesAll() {
+                $arr = $this->call('branches', 'all');
+                $arr = $arr['branches'];
+                foreach ($arr as $i => &$value) {
+                    if ($value['country'] != 'РОССИЯ') {
+                        unset($arr[$i]);
+                    }
 
-            /*
-            Метод возвращает "чистый" список городов
-            */
-            function getCleanListCities() {
-                $cities = self::getListCities(); // array "грязный" список городов ПЭКа
-                function replaseName($name) { // Доп-функция для замены названий городов в списке. Возвращает новое значение.
-                    if ($name == 'Владикавказ ФР') {
-                        $name = 'Владикавказ';
-                    } else if ($name == 'Москва Восток') {
-                        $name = 'Москва';
-                    } else if ($name == 'Орел') {
-                        $name = 'Орёл';
-                    } else if ($name == 'Наро-Фоминск Киевское шоссе') {
-                        $name = 'Наро-Фоминск';
-                    };
-                    return $name;
-                };
+                    unset($value['cities']);
+                    unset($value['divisions']);
+                    unset($value['timezone']);
+                    unset($value['id']);
+                    $reg = '#(республика\b\s)?(г.\s)?(\d*,*)?(?P<region>.*?(?=[.,]|обл|область|край|АО|респ))#ui';
+                    $reg_result = [];
+                    preg_match($reg, $value['address'], $reg_result); 
+                    $value['address'] = trim($reg_result['region']);
 
-                foreach ($cities as $city => $value) {
-                    // пропускаем итерацию некоторых городов
-                    if ($city == ('Алматы')) {
-                        continue;
-                    } else if ($city == 'Нур-Султан') {
-                        continue;
-                    }else if ($city == 'Астана') {
-                        continue;
-                    } else if ($city == 'Минск') {
-                        continue;
-                    } else if ($city == 'Витебск') {
-                        continue;
-                    };
-                    $city = replaseName($city); // и меняем название городов в некоторых ключях
-                    $search = false; // переменная для 
+                    if ($value['title'] == "Москва Восток") {
+                        $value['title'] = "Москва";
+                        $value['address'] = "Московская";
+                    } else if ($value['title'] == "Москва (ЦКАД)") {
+                        unset($arr[$i]);
+                    } else if ($value['title'] == "Норильск Нефтебаза") {
+                        $value['title'] = "Норильск";
+                    } else if ($value['title'] == "Орел") {
+                        $value['title'] = "Орёл";
+                    } else if ($value['title'] == "Наро-Фоминск Киевское шоссе") {
+                        $value['title'] = "Наро-Фоминск";
+                        $value['address'] = "Московская";
+                    }
 
-                    // если в значение хранится массив (а там должен быть массив)
-                    // запускаем новый цикл по вложенному массиву
-                    if (gettype($value) == 'array') {
-                        foreach ($value as $code => $locality) {
-                            $locality = replaseName($locality); // меняем название городов в некоторых значениях
-                            // очищаем значение элемента массива от лишней информации
-                            $reg = '#(?P<name>[^,\.()]*\b)\s*(?P<info>[(,\.][^(]*(?=[(]))?\s*(?P<location>\(.*\))?#ui';
-                            $reg_result = [];  // 
-                            preg_match($reg, $locality, $reg_result);
+                    if ($value['title'] == "Нижневартовск") {
+                        $value['address'] = "Ханты-Мансийский";
+                    } else if ($value['title'] == "Санкт-Петербург") {
+                        $value['address'] = "Ленинградская";
+                    } else if ($value['title'] == "Ухта") {
+                        $value['address'] = "Коми";
+                    }
 
-                            if ($city == $reg_result['name']) {
-                                $search = true;
-                                $cleanListCities[] = [
-                                    'name' => $city,
-                                    'code' => $code,
-                                    'type' => 'город'
-                                ];
-                                break;
+                    if ($value['address'] == "Кабардино-Балкария") {
+                        $value['address'] = "Кабардино-Балкарская";
+                    } else if ($value['address'] == "Нижний Новгород") {
+                        $value['address'] = "Нижегородская";
+                    } else if ($value['address'] == "Северная Осетия – Алания") {
+                        $value['address'] = "Северная Осетия";
+                    }
+
+                    $value['name'] = $value['title'];
+                    unset($value['title']);
+                    $value['region'] = $value['address'];
+                    unset($value['address']);
+                    $value['code'] = $value['bitrixId'];
+                    unset($value['bitrixId']);
+                    $value['postal_code'] = $value['postalCode'];
+                    unset($value['postalCode']);
+                    $value['acronym'] = $value['branchCode'];
+                    unset($value['branchCode']);
+                    $coordinates = $value['coordinates'];
+                    unset($value['coordinates']);
+                    $value['coordinates'] = $coordinates;
+                }
+                sort($arr);
+                // array_multisort($arr, SORT_STRING);
+                return $arr;
+            }
+
+            /**
+             * метод фильтрует вложенные массивы "kladr"
+             * 
+             * метод получает масив городов ПЭКа, 
+             * где в каждый город вложен массив "kladr", с вариантами нас.пунктов совпадающих по наименованию
+             * метод отфильтрует все нас.пункты в массиве "kladr" которые не совпадают по региону с записью города
+             * если такого массива в записе города не будет, ни чего не произойдёт
+             * вернет тот же список городов с отфильтроваными вложеными массивами "kladr"
+             * @param array $list массив городов ПЭКа
+             * @return array 
+             */
+            function filterArrayKladr(&$list) {
+                foreach ($list as $i => &$value) {
+                    if ($value['kladr'] && count($value['kladr']) > 1) {
+                        foreach ($value['kladr'] as $j => $info) {
+                            if ($info['regionName'] && $info['regionName'] != $value['region']) {
+                                unset($value['kladr'][$j]);
                             }
                         }
+                        sort($value['kladr']);
                     }
                 }
-                return $cleanListCities;
+                return $list;
             }
 
 

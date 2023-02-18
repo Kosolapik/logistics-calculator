@@ -725,7 +725,7 @@ progress {
 }
 .cell-data__option-input:checked + .cell-data__option-label::before {
   background-color: #517970;
-  background-image: url(../../images/checkmark.svg);
+  background-image: url(/images/checkmark.svg);
 }
 .cell-data__option-label {
   display: flex;

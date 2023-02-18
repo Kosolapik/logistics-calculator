@@ -10,8 +10,8 @@
    <body>
       <main>
          <h1 class="title-h1">Кабинет администратора</h1>
-         <button class="button button__pec">Сопоставить города ПЭКа</button>
-         <button class="button button__kit">Сопоставить города КИТа</button>
+         <button class="button button__pec">Загрузить города ПЭКа</button>
+         <button class="button button__kit">Загрузить города КИТа</button>
             <section class="showData">
                 
             </section>

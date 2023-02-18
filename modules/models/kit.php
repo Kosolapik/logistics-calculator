@@ -1,79 +1,84 @@
 <?php
     namespace Models {
         class Kit {
-            static private $token = '0u-NmsFSISrfJ3xTk14jcOV9OHb0sVMi';
+            static private $token = '-0BzqLQVO9wzelbMTBhJOBzflTC6fukV';
             static $baseUrl = 'https://capi.tk-kit.com';
 
-            /*
-                Метод ишет город по названию. Полученый масив от КИТа перебирается и удаляются не нужные нас. пункты.
-                Удаляются одноименные нас. пункты с других регионов и проверяется полное совпадение по наименованию.
-            */
-            function searchCity($arr) {
-                $url = self::$baseUrl . '/1.0/tdd/city/get-list';
+            /**
+             * выполняет запрос в КИТ
+             * @param string $method метод запроса, обязательно вначале слеш
+             * @param array $data параметры запроса
+             * @return array возвращает массив с ответом КИТа
+             */
+            private function call($method, $data = []) {
+                $url = self::$baseUrl . $method;
                 $headerToken = 'Authorization: Bearer ' . self::$token;
                 $curl = new \CurlWrapper([$headerToken]);
-                $params = [
-                    'title' => $arr['name']
-                    // 'region_code' => 59,
-                    // 'required_delivery' => 0
-                ];
-                $answerKit = $curl->sendRequest('post', $url, $params);
-                $answerKit = json_decode($answerKit, true);
-                $regNum = substr($arr['id'], 0, 2);
-                foreach ($answerKit as $key => $value) {
-                    if ($value['region_code'] !== $regNum) {
-                        unset($answerKit[$key]);
-                    }
-                    if ($value['type'] == 'село') {
-                        $value['type'] = 'поселок';
-                    }
-                    $reg_type = '#^' . $value['type'] . '.*#ui';
-                    $res_type = preg_match($reg_type, $arr['type']);
-                    if ($res_type == false) {
-                        unset($answerKit[$key]);
-                    }
-                    $reg = '#^' . $arr['name'] . '\b(?!-)#ui';
-                    $reg_result = [];
-                    $res = preg_match($reg, $value['name']);
-                    if ($res == false) {
-                        unset($answerKit[$key]);
-                    }
-                };
-                return $answerKit;
+                $res = $curl->sendRequest('post', $url, $data);
+                $res = json_decode($res, true);
+                return $res;
             }
 
-
-
-
-            /*
-                Метод получает от КИТа полный список городов из 18 тысяч строк.
-                И переберает его и удаляет города где нет филиалов кита.
-                Возвращает чистый список городов где есть склады КИТа.
-            */
-            function getCleanListCities() {
-                $url = self::$baseUrl . '/1.0/tdd/city/get-list';
-                $headerToken = 'Authorization: Bearer ' . self::$token;
-                $curl = new \CurlWrapper([$headerToken]);
-                $params = [
+            /**
+             * запрашивает полный список городов у КИТа
+             * @return array возвращает "чистый" список городов России
+             */
+            function getCitiesAll() {
+                $arrCities = $this->call('/1.0/tdd/city/get-list', [
                     'country_code' => 'RU'
-                ];
-                $answerKit = $curl->sendRequest('post', $url, $params);
-                $answerKit = json_decode($answerKit, true);
-                foreach ($answerKit as $key => $value) {
-                    $reg = '#[^()]*#ui';
-                    $reg_result = [];
-                    $res = preg_match($reg, $value['name'], $reg_result);
-                    $value['name'] = $reg_result[0];
-                    if ($value['required_pickup'] == 0) {
-                        $cleanListCities[] = [
-                            'name' => trim($value['name']),
-                            'code' => $value['code'],
-                            'type' => $value['type']
-                        ];
+                ]);
+                foreach ($arrCities as $i => $value) {
+                    if ($value['required_delivery'] == 1 && $value['required_pickup'] == 1 || $value['type'] == 'мкр') {
+                        unset($arrCities[$i]);
                     }
-                    
                 }
-                return $cleanListCities;
+                foreach ($arrCities as $i => &$value) {
+                    $reg = '#(?P<name>[^()]*)#ui';
+                    $reg_result = [];
+                    preg_match($reg, $value['name'], $reg_result); 
+                    $value['name'] = trim($reg_result['name']);
+                    $value['region'] = $value['region_code'];
+                    unset($value['region_code']);
+                    $value['country'] = $value['country_code'];
+                    unset($value['country_code']);
+
+                    if ($value['name'] == 'Южные ворота') {
+                        unset($arrCities[$i]);
+                    }
+                    if ($value['name'] == 'Садовод') {
+                        unset($arrCities[$i]);
+                    }
+                    if ($value['name'] == 'Мытищи') {
+                        $value['region'] = 50;
+                    }
+                }
+                sort($arrCities);
+                return $arrCities;
+            }
+
+            /**
+             * метод фильтрует вложенные массивы "kladr"
+             * 
+             * метод получает масив городов КИТа, 
+             * где в каждый город вложен массив "kladr", с вариантами нас.пунктов совпадающих по наименованию
+             * метод отфильтрует все нас.пункты в массиве "kladr" которые не совпадают по региону с записью города
+             * если такого массива в записе города не будет, ни чего не произойдёт
+             * вернет тот же список городов с отфильтроваными вложеными массивами "kladr"
+             * @param array $list массив городов КИТа
+             * @return array 
+             */
+            function filterArrayKladr(&$list) {
+                foreach ($list as $i => &$value) {
+                    if ($value['kladr'] && count($value['kladr']) > 1) {
+                        foreach ($value['kladr'] as $j => $info) {
+                            if ($info['regionId_kladr'] && substr($info['regionId_kladr'], 0, 2) != $value['region']) {
+                                unset($value['kladr'][$j]);
+                            }
+                        }
+                        sort($value['kladr']);
+                    }
+                }
+                return $list;
             }
         }
     }

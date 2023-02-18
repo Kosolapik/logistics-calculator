@@ -7,113 +7,108 @@ let monitor = document.querySelector('.showData');
 let buttonAll;
 let buttonsWrite;
 
-    
+/**
+ * функция создает новый элемент и добавляет к нему классы
+ * @param {string} tag тэг создаваемого элемента
+ * @param {string|object} addedClass классы добавляемые к создаваемому элементу
+ * @returns {object} возвращает ссылку на созданный обект
+ */
+function createElement(tag, addedClass, placeToAdd = null, selectWhere = null) {
+    let element = document.createElement(tag);
+    if (typeof(addedClass) == "string") {
+        element.classList.add(addedClass);
+    } else if (typeof(addedClass) == "object") {
+        for (let i = 0; i < addedClass.length; i++) {
+            let cl = addedClass[i];
+            element.classList.add(cl);
+        }
+    }
+    if (placeToAdd) {
+        if (selectWhere == 'prepend') {
+            placeToAdd.prepend(element);
+        } else if (selectWhere == 'before') {
+            placeToAdd.before(element);
+        } else if (selectWhere == 'after') {
+            placeToAdd.after(element);
+        } else if (selectWhere == 'append') {
+            placeToAdd.append(element);
+        } else {
+            placeToAdd.append(element);
+        }
+    }
+    return element;
+}
+
+
+/**
+ * функция выводит список городов транспортных компаний
+ * @param {object} selectMonitor DOM-элемент для вывода
+ * @param {object} list список городов
+ */
 function outputInfo(selectMonitor, list) {
     /* Очищаем экран вывода информации */
     selectMonitor.innerText = '';
-        /*
-            Функция для создания новых элементов с нужными класами.
-            Возвращает новый элемент.
-        */
-            function createElement(tag, addedClass) {
-                let element = document.createElement(tag);
-                if (typeof(addedClass) == "string") {
-                    element.classList.add(addedClass);
-                } else {
-                    for (let i = 0; i < addedClass.length; i++) {
-                        let cl = addedClass[i];
-                        element.classList.add(cl);
-                    }
-                }
-                return element;
-            }
-    
     /*
-        Запускаем цикл по пришедшему в ответе массиву со списком городов.
-        И для каждого элемента массива (города) создаём ячеку для вывода информации.
+        Запускаем цикл по пришедшему в параметрах объекту со списком городов.
+        И для каждого элемента объекта (города) создаём ячеку для вывода информации.
         И заполняем её информацией хранящейся в значении этого элемента.
     */ 
     for (let number in list) {
-       
-        let cellData = createElement('div', 'cell-data'); 
-        let blockInfo = createElement('div', 'cell-data__block-info');
-        cellData.append(blockInfo);
-
-            let title = createElement('div', 'cell-data__title');
-            blockInfo.append(title);
+        let cellData = createElement('div', 'cell-data', selectMonitor, 'append'); 
+        let blockInfo = createElement('div', 'cell-data__block-info', cellData, 'append');
+            let title = createElement('div', 'cell-data__title', blockInfo, 'append');
                 let cityTC;
-                let dataBase
-                if (list[number]['database']) {
-                    cityTC = createElement('div', ['cell-data__subtitle', 'cell-data__subtitle_city-off']);
-                    dataBase = createElement('div', ['cell-data__subtitle', 'cell-data__subtitle_database']);
-                    dataBase.innerText = `[ ${list[number]['database']['id']} | ${list[number]['database']['type'].toLowerCase()} ${list[number]['database']['name']} | ${list[number]['database']['id_pec']} ]`;
-                } else {
-                    cityTC = createElement('div', ['cell-data__subtitle', 'cell-data__subtitle_city']);
-                    dataBase = createElement('div', ['cell-data__subtitle', 'cell-data__subtitle_database-off']);
-                    dataBase.innerText = `[ В базе данных нет такой записи ]`;
-                }
-                cityTC.innerText = `${list[number]['type'][0]}. ${list[number]['name']} [${list[number]['code']}]`;
-                title.append(cityTC);
-                title.append(dataBase);
+                let dataBase;
+             
+                cityTC = createElement('div', ['cell-data__subtitle', 'cell-data__subtitle_city'], title, 'append');
+                cityTC.innerText = `${list[number]['name']} (${list[number]['region']}) [${list[number]['code']}]`;
+                dataBase = createElement('div', ['cell-data__subtitle', 'cell-data__subtitle_database'], title, 'append');
+                dataBase.innerText = `[ ${list[number]['db'][0]['id']} | ${list[number]['db'][0]['name']} | ${list[number]['db'][0]['code']} | ${list[number]['db'][0]['id_kladr']} | ${list[number]['db'][0]['region']} ]`;
                 
                 
-            let optionsBlock = createElement('div', 'cell-data__options-block');
-            blockInfo.append(optionsBlock);
+                
+            let optionsBlock = createElement('div', 'cell-data__options-block', blockInfo, 'append');
+            let obj = list[number]['kladr'];
+            for (let i in obj) {
+                let option = createElement('div', 'cell-data__option', optionsBlock, 'append');
 
-                let obj = list[number]['kladr'];
-                for (let i in obj) {
-                    let option = createElement('div', 'cell-data__option"');
+                let input = createElement('input', 'cell-data__option-input', option, 'append');
+                input.setAttribute('type', 'radio');
+                input.setAttribute('name', obj[i]['name']);
+                input.setAttribute('value', obj[i]['id_kladr']);
+                input.setAttribute('id', obj[i]['id_kladr']);
+                if (list[number]['db'][0]['id_kladr'] == list[number]['kladr'][i]['id_kladr']) {
+                    input.setAttribute('checked', true);
+                } else if (list[number]['kladr'].length == 1) {
+                    input.setAttribute('checked', true);
+                };
 
-                    let input = createElement('input', 'cell-data__option-input');
-                    input.setAttribute('type', 'radio');
-                    input.setAttribute('name', obj[i]['name']);
-                    input.setAttribute('value', obj[i]['id_kladr']);
-                    input.setAttribute('id', obj[i]['id_kladr']);
-                    if (list[number]['database']) {
-                        if (list[number]['database']['id_kladr'] == list[number]['kladr'][i]['id_kladr']) {
-                            input.setAttribute('checked', true);
-                        }
-                    } else {
-                        if (list[number]['kladr'].length == 1) {
-                            input.setAttribute('checked', true);
-                        }
-                    }
-                    option.append(input);
+                let label = createElement('label', 'cell-data__option-label', option, 'append');
+                label.setAttribute('for', obj[i]['id_kladr']);
 
-                    let label = createElement('label', 'cell-data__option-label');
-                    label.setAttribute('for', obj[i]['id_kladr']);
-                    option.append(label);
-
-                    label.innerText = `${obj[i]['typeShort']}. ${obj[i]['name']} ${obj[i]['regionName'] ? ", " + obj[i]['regionName'] + " " + obj[i]['regionTypeShort'].toLowerCase() : ""}`;
-                    optionsBlock.append(option);
-                }
+                label.innerText = `${obj[i]['typeShort']}. ${obj[i]['name']} ${obj[i]['regionName'] ? ", " + obj[i]['regionName'] + " " + obj[i]['regionTypeShort'].toLowerCase() : ""}`;
+            }
                 
-                
-        let blockButton = createElement('div', 'cell-data__block-button');
-        cellData.append(blockButton);
-                
-            let buttonWrite = createElement('button', ['cell-data__button', 'cell-data__button_write']);
+        let blockButton = createElement('div', 'cell-data__block-button', cellData, 'append');
+            let buttonWrite = createElement('button', ['cell-data__button', 'cell-data__button_write'], blockButton, 'append');
             buttonWrite.innerText = "Записать в БД";
-            blockButton.append(buttonWrite);
-
-            let buttonRewrite = createElement('button', ['cell-data__button', 'cell-data__button_rewrite']);
-            buttonRewrite.innerText = "Перезаписать в БД";
-            blockButton.append(buttonRewrite);
-
-            let blockError = createElement('div', 'cell-data__block-error');
-            blockButton.append(blockError);
-
-        selectMonitor.append(cellData);
+            // let buttonRewrite = createElement('button', ['cell-data__button', 'cell-data__button_rewrite'], blockButton, 'append');
+            // buttonRewrite.innerText = "Перезаписать в БД";
+            let blockError = createElement('div', 'cell-data__block-error', blockButton, 'append');
     }
 
     // создаём и вставляем кнопку "Записать все"
-    buttonAll = createElement('button', 'cell-data__button');
+    buttonAll = createElement('button', 'cell-data__button', selectMonitor, 'prepend');
     buttonAll.innerText = 'Записать все';
-    selectMonitor.prepend(buttonAll);
 }
 
-// функция обработки клика по кнопке "Записать в БД
-function recordMatch (button, index, id_tc) {
+/**
+ * функция обработки клика по кнопке "Записать в БД
+ * @param {*} button 
+ * @param {*} index 
+ * @param {*} table 
+ */
+function recordMatch (button, index, table) {
     let cityInfo = button.parentElement.previousElementSibling.firstElementChild.firstElementChild,
         databaseInfo = button.parentElement.previousElementSibling.firstElementChild.children[1];
     let blockError = button.parentElement.querySelector('.cell-data__block-error');
@@ -121,50 +116,54 @@ function recordMatch (button, index, id_tc) {
     let dataForRecording = {}; // объект для сбора данных для записи в БД
 
     // проверяем есть ли отмеченные радио кнопки
-    let numberRecord = null;
+    let numberOption = null;
     for (let j = 0; j < options.length; j++) {
         if (options[j].firstElementChild.checked) {
-            numberRecord = j;
+            numberOption = j;
         }
     }
 
     // функция для обработки ответа после записи в БД
     function afterRecordMatch (answer) {
-        if (typeof(answer) == 'number') {
-            if (answer === 0) {
-                blockError.innerText = '';
-                blockError.innerText = 'Такая запись уже есть в БД';
-            } else if (answer > 0) {
-                cityInfo.classList.remove('cell-data__subtitle_city-pec');
-                cityInfo.classList.add('cell-data__subtitle_city-pec-off');
-                databaseInfo.classList.remove('cell-data__subtitle_database-off');
-                databaseInfo.classList.add('cell-data__subtitle_database');
-                databaseInfo.innerText = '';
-                databaseInfo.innerText = `[ ${answer} | ${arr[index]['kladr'][numberRecord]['type'].toLowerCase()} ${arr[index]['name']} | ${arr[index]['code']} ]`;
-            }
+        if (answer == 0) {
+            blockError.innerText = '';
+            blockError.innerText = 'Такая запись уже есть в БД';
+        } else {
+            blockError.innerText = '';
+            blockError.innerText = 'Запись добавлена в БД';
+            databaseInfo.innerText = '';
+            databaseInfo.innerText = `[ ${answer[0]['id']} | ${answer[0]['name']} | ${answer[0]['code']} | ${answer[0]['id_kladr']} | ${answer[0]['region']} ]`;
         }
     }
 
-    if (numberRecord != null) {
+    if (numberOption != null) {
         blockError.innerText = '';
         dataForRecording = { // объект для сбора данных для записи в БД
-            name: arr[index]['name'],
-            type: arr[index]['kladr'][numberRecord]['type'],
-            id_kladr: arr[index]['kladr'][numberRecord]['id_kladr'],
-            guid: arr[index]['kladr'][numberRecord]['guid'],
+            'values': {
+                'id_kladr': arr[index]['kladr'][numberOption]['id_kladr'],
+            },
+            'name': arr[index]['name'],
+            'code': arr[index]['code'],
+            'table': table
         };
-        dataForRecording[id_tc] = arr[index]['code'];
-        console.log(dataForRecording);
         dataForRecording = JSON.stringify(dataForRecording);
 
+        let url;
+        if (table == 'pec_cities') {
+            url = 'http://logist-master/api/pec/add_idkladr';
+        } else if (table == 'kit_cities') {
+            url = 'http://logist-master/api/kit/add_idkladr';
+        }
         // Отправляем данные на запись в БД
         let ajax = new XMLHttpRequest();
-        ajax.open('post', 'http://logist-master/admin/pec/add');
+        ajax.open('post', url);
         ajax.onreadystatechange = function () {
-            if (this.readyState == 4) { // запрос завершён
+            if (this.readyState == 4) {
                 if (this.status == 200) {
-                    console.log(this.response);
+                    // console.log(this.response);
                     let res = JSON.parse(this.response);
+                    // let res = (this.response);
+                    // console.log(res);
                     afterRecordMatch(res);
                 } else {
                     console.log(this.status, this.statusText);
@@ -179,19 +178,19 @@ function recordMatch (button, index, id_tc) {
 }
 
 // функция добавляет события на все кнопки "Записать в БД"
-function addEventToWriteDatabase (company) {
+function addEventToWriteDatabase (table) {
     // вешаем на все кнопки обработчик события клик
     for (let i = 0; i < buttonsWrite.length; i++) {
         buttonsWrite[i].addEventListener('click', (e) => {
-            recordMatch(e.target, i, company);
+            recordMatch(e.target, i, table);
         });
     }
 }
 // функция вешает событие на кнопку "Записать все"
-function addEventToWriteDatabaseAll (company) {
+function addEventToWriteDatabaseAll (table) {
     buttonAll.addEventListener('click', (e) => {
         for (let i = 0; i < buttonsWrite.length; i++) {
-            recordMatch(buttonsWrite[i], i, company);
+            recordMatch(buttonsWrite[i], i, table);
         }
     })
 }
@@ -199,7 +198,7 @@ function addEventToWriteDatabaseAll (company) {
 
 buttonPec.addEventListener('click', (e) => {
     let ajax = new XMLHttpRequest();
-    ajax.open('get', 'http://logist-master/api/pec/cities');
+    ajax.open('get', 'http://logist-master/api/pec/get_cities');
     ajax.onreadystatechange = function () {
         if (this.readyState == 4) { // запрос завершён
             if (this.status == 200) {
@@ -209,8 +208,8 @@ buttonPec.addEventListener('click', (e) => {
                 arr = res;
                 outputInfo(monitor, res);
                 buttonsWrite = document.querySelectorAll('.cell-data__button_write');
-                addEventToWriteDatabase('id_pec');
-                addEventToWriteDatabaseAll('id_pec');
+                addEventToWriteDatabase('pec_cities');
+                addEventToWriteDatabaseAll('pec_cities');
             } else {
                 console.log(this.status, this.statusText);
             }
@@ -220,7 +219,7 @@ buttonPec.addEventListener('click', (e) => {
 })
 buttonKit.addEventListener('click', (e) => {
     let ajax = new XMLHttpRequest();
-    ajax.open('get', 'http://logist-master/api/kit/cities');
+    ajax.open('get', 'http://logist-master/api/kit/get_cities');
     ajax.onreadystatechange = function () {
         if (this.readyState == 4) { // запрос завершён
             if (this.status == 200) {
@@ -230,8 +229,8 @@ buttonKit.addEventListener('click', (e) => {
                 arr = res;
                 outputInfo(monitor, res);
                 buttonsWrite = document.querySelectorAll('.cell-data__button_write');
-                addEventToWriteDatabase('id_kit');
-                addEventToWriteDatabaseAll('id_kit');
+                addEventToWriteDatabase('kit_cities');
+                addEventToWriteDatabaseAll('kit_cities');
             } else {
                 console.log(this.status, this.statusText);
             }
