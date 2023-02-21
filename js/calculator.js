@@ -167,11 +167,10 @@ function processingRouteFields(selectCell) {
 processingRouteFields('.form__cell_from');
 processingRouteFields('.form__cell_where');
 
-/*
-    Функция добавления данных из формы в объект 
-*/
+/**
+ * Функция добавления данных из формы в объект 
+ */
 let formDataCalculator = {};
-
 function addData(selectBlock, selectFormData) {
     let inputs = selectBlock.querySelectorAll('input');
     for (let j = 0; j < inputs.length; j++) {
@@ -187,24 +186,32 @@ for (let i = 1; i < formBlocks.length; i++) {
 }
 
 
-/*
-    Функция отправки формы без перезагрузки
-*/
-function sendForm(selectForm) {
-    let form = document.querySelector(selectForm);
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        let ajax = new XMLHttpRequest();
-        ajax.open("post", "http://logist-master/api/calculate-delivery");
-        ajax.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
+/**
+ * расчитывает доставку в указанной ТК
+ */
+function calculate (company) {
+    formDataCalculator['company'] = company;
+    console.log(formDataCalculator);
+    let ajax = new XMLHttpRequest(),
+        url = 'http://logist-master/api/calculate-delivery';
+    ajax.open('post', url);
+    ajax.onreadystatechange = function () {
+        if (this.readyState == 4) { // запрос завершён
+            if (this.status == 200) {
                 console.log(this.response);
                 let res = JSON.parse(this.response);
                 console.log(res);
+            } else {
+                console.log(this.status, this.statusText);
             }
-        };
-        let data = JSON.stringify(formDataCalculator);
-        ajax.send(data);
-    })
-}
-sendForm('#form-calculator');
+        }
+    };
+    let formData = JSON.stringify(formDataCalculator);
+    ajax.send(formData);
+};
+
+let buttonCalc = document.querySelector('.form-calculator__submit');
+buttonCalc.addEventListener('click', (e) => {
+    e.preventDefault();
+    calculate('pec');
+})

@@ -26,19 +26,17 @@
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $dataForm = file_get_contents('php://input');
                     $dataForm = json_decode($dataForm, true);
-
-                    $pec = new \Models\Pec();
-                    $culcPec = $pec->calculateDelivery($dataForm);
-                    $arrCulc = [
-                        'pec' => $culcPec
-                    ];
-
-                    // $kit = new \Models\Kit();
-                    // $cityKit = $kit->getCitiesList();
-                    // $arrCulc['kit'] = $cityKit;
                     
-                    $arrCulc = json_encode($arrCulc, JSON_UNESCAPED_UNICODE);
-                    echo $arrCulc;
+                    if ($dataForm['company'] == 'pec') {
+                        $pec = new \Models\Pec();
+                        $calcRes = $pec->calculateDelivery($dataForm);
+                    } else if ($company == $kit) {
+
+                    }
+                    
+                    $calcRes = json_encode($calcRes, JSON_UNESCAPED_UNICODE);
+                    // echo $calcRes;
+                    echo $calcRes;
                 }
             }
         }

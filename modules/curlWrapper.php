@@ -9,6 +9,7 @@
         }
     
         public function sendRequest(string $method, string $url = '', array $data = [], array $params = []) {
+            // print_r($method);
             if ($url === '' || $url === null || $url === false) {
                 return 'Укажите URL-адрес запроса';
             } 
@@ -20,7 +21,7 @@
                 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
             } else if ($method == 'json') {
                 $ch = curl_init($url);
-                $this->headers[] = 'Content-Type:application/json';
+                $this->headers[] = 'Content-Type: application/json; charset=utf-8';
                 curl_setopt($ch, CURLOPT_POST, true);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data, JSON_UNESCAPED_UNICODE));
             }

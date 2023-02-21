@@ -104,9 +104,9 @@ function outputInfo(selectMonitor, list) {
 
 /**
  * функция обработки клика по кнопке "Записать в БД
- * @param {*} button 
- * @param {*} index 
- * @param {*} table 
+ * @param {object} button DOM-объект кнопки
+ * @param {integer} index индекс нажатой кнопки
+ * @param {string} table таблица БД
  */
 function recordMatch (button, index, table) {
     let cityInfo = button.parentElement.previousElementSibling.firstElementChild.firstElementChild,
@@ -177,7 +177,10 @@ function recordMatch (button, index, table) {
     }
 }
 
-// функция добавляет события на все кнопки "Записать в БД"
+/**
+ *  функция добавляет события на все кнопки "Записать в БД"
+ * @param {string} table таблица БД
+ */ 
 function addEventToWriteDatabase (table) {
     // вешаем на все кнопки обработчик события клик
     for (let i = 0; i < buttonsWrite.length; i++) {
@@ -186,7 +189,10 @@ function addEventToWriteDatabase (table) {
         });
     }
 }
-// функция вешает событие на кнопку "Записать все"
+/**
+ * функция вешает событие на кнопку "Записать все"
+ * @param {string} table 
+ */
 function addEventToWriteDatabaseAll (table) {
     buttonAll.addEventListener('click', (e) => {
         for (let i = 0; i < buttonsWrite.length; i++) {
@@ -195,7 +201,9 @@ function addEventToWriteDatabaseAll (table) {
     })
 }
 
-
+/**
+ * вешает обработку события клика на кнопку ПЭК
+ */
 buttonPec.addEventListener('click', (e) => {
     let ajax = new XMLHttpRequest();
     ajax.open('get', 'http://logist-master/api/pec/get_cities');
@@ -216,7 +224,11 @@ buttonPec.addEventListener('click', (e) => {
         }
     },
     ajax.send();
-})
+});
+
+/**
+ * вешает обработку события клика на кнопку ПЭК
+ */
 buttonKit.addEventListener('click', (e) => {
     let ajax = new XMLHttpRequest();
     ajax.open('get', 'http://logist-master/api/kit/get_cities');
@@ -237,4 +249,4 @@ buttonKit.addEventListener('click', (e) => {
         }
     },
     ajax.send();
-})
+});

@@ -70,9 +70,6 @@
                     $kladr_answer = json_decode($kladr_answer, true); // асоциативный массив ответ от kladr
                     $kladr_result = $kladr_answer['result'];  // массив с результатами от кладр
                     $arr = [];
-                    // if($value['name'] == 'Горда') {
-                    //     var_dump($kladr_result);
-                    // }
                     foreach ($kladr_result as $i => $val) {
                         if ($val['name'] == $value['name']) {
                             $arr[] = [
