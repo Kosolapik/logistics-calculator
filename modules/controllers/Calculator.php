@@ -28,14 +28,14 @@
                     $dataForm = json_decode($dataForm, true);
                     
                     if ($dataForm['company'] == 'pec') {
-                        $pec = new \Models\Pec();
+                        $pec = new \Models\TransportCompanies\Pec();
                         $calcRes = $pec->calculateDelivery($dataForm);
-                    } else if ($company == $kit) {
-
+                    } else if ($dataForm['company'] == 'kit') {
+                        $kit = new \Models\TransportCompanies\Kit();
+                        $calcRes = $kit->calculateDelivery($dataForm);
                     }
                     
                     $calcRes = json_encode($calcRes, JSON_UNESCAPED_UNICODE);
-                    // echo $calcRes;
                     echo $calcRes;
                 }
             }

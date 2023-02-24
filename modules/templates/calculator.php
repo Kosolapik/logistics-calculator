@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="resources/css/style.min.css">
   <title>Главная</title>
 </head>
    <body>
@@ -104,5 +104,5 @@
       <footer class="footer">
       </footer>
    </body>
-   <script src="js/calculator.js"></script>
+   <script src="resources/js/calculator.min.js"></script>
 </html>

@@ -21,7 +21,7 @@
              * @return json возвращает json списк городов ПЭКа сопоставленный с БД и КЛАДР
              */
             function pecGetCitiesAll() {
-                $pec = new \Models\Pec();
+                $pec = new \Models\TransportCompanies\Pec();
                 $cities = $pec->getCitiesAll(); // array список городов
                 $db = new \Models\DataBases\PecCities();
                 $db->recordNewCities($cities, 'code');
@@ -44,7 +44,7 @@
              * @return json возвращает json списк городов КИТа сопоставленный с БД и КЛАДР
              */
             function kitGetCitiesAll() {
-                $kit = new \Models\Kit();
+                $kit = new \Models\TransportCompanies\Kit();
                 $cities = $kit->getCitiesAll();
                 $db = new \Models\DataBases\KitCities();
                 $db->recordNewCities($cities, 'code');

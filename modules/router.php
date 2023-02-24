@@ -20,15 +20,15 @@ if ($request_path == '') {
 } else if ($request_path == 'api/pec/add_idkladr') {
     $controller = new \Controllers\Admin();
     $controller->addPecRecord();
-} else if ($request_path == 'api/calculate-delivery') {
-    $controller = new \Controllers\Calculator();
-    $controller->calculateDelivery();
 } else if ($request_path == 'api/kit/get_cities') {
     $controller = new \Controllers\Admin();
     $controller->kitGetCitiesAll();
 } else if ($request_path == 'api/kit/add_idkladr') {
     $controller = new \Controllers\Admin();
     $controller->addKitRecord();
+} else if ($request_path == 'api/calculate-delivery') {
+    $controller = new \Controllers\Calculator();
+    $controller->calculateDelivery();
 } /*else {
     throw new Page404Exception();
 }*/
