@@ -9,5 +9,5 @@ export const plugins = {
   plumber: plumber,
   notify: notify,
   newer: newer,
-  if: ifPlugin
+  if: ifPlugin,
 }

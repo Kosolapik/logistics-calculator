@@ -2,10 +2,19 @@
 @import './tools';
 @import './components/';
 
+html {
+  font-size: 10px;
+}
 body {
   font-family: $fontMain400;
-  color: $color1;
+  color: $color4;
   background-color: $color1;
+  font-size: 10px;
+}
+.container {
+  max-width: 1180px;
+  padding: 5px;
+  margin: auto;
 }
 
 .display_off {

@@ -16,7 +16,7 @@ export const scss = () => {
         title: 'SCSS',
         message: 'Error: <%= error.message %>'
       })))
-    .pipe(app.plugins.replace(/@img\//g, '../images/'))
+    .pipe(app.plugins.replace(/@img\//g, '../resources/images/'))
     .pipe(sass({ outputStyle: 'expanded' }))
     .pipe(app.plugins.if(app.isBuild, groupCssMediaQueries()))
     .pipe(app.plugins.if(app.isBuild, webpcss(

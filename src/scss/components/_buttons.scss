@@ -1,0 +1,48 @@
+.button {
+    color: $color1;
+    font-family: $fontMain300;
+    font-size: 1.7rem;
+    // margin: auto;
+
+    background-image: linear-gradient(to right, #29323c, #485563, #3f86ed, #195cc0);
+    box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
+
+    // background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);
+    // box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+
+    // background-image: linear-gradient(to right, #667eea, #764ba2, #6B8DD6, #8E37D7);
+    // box-shadow: 0 4px 15px 0 rgba(116, 79, 168, 0.75);
+
+    // width:auto;
+    height: fit-content;
+    padding: 13px 25px;
+
+    cursor: pointer;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+
+    border-radius: 20px;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+
+    &:hover {
+        // font-family: $fontMain600;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+        color: $color1;
+        text-shadow: 0px 1px 1px #000000, 0px -1px 1px #000000, 1px 0px 1px #000000, -1px 0px 1px #000000;
+
+        // padding: 10px 20px;
+        background-position: 99% 0;
+        moz-transition: background-position .4s ease-in-out;
+        -o-transition: background-position .4s ease-in-out;
+        -webkit-transition: background-position .4s ease-in-out;
+        transition: background-position .4s ease-in-out;
+    }
+    &:focus {
+        outline: none;
+    }
+}

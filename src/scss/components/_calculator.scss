@@ -1,0 +1,158 @@
+.calculator {
+    &__title {
+        text-align: center;
+    }
+    &__form {
+        width: 100%;
+        max-width: 900px;
+        margin: auto;
+        margin-bottom: 50px;
+    }
+    .form {
+        display: flex;
+        flex-flow: column;
+        border-radius: 10px;
+        padding: 35px;
+        color: $color1;
+        background-color: $color3;
+        box-shadow: 0 5px 25px 0 $color2;
+        &__block {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-around;
+            flex: 1 1 content;
+            &:nth-last-child(1) {
+                justify-content: end;
+            }
+            &_column {
+                display: flex;
+                flex-flow: column;
+            }
+        }
+        &__cell {
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            padding: 0px 5px;
+            flex: 1 1 content;
+            // max-width: 50%;
+        }
+        &__inner {
+            display: flex;
+            flex-flow: column;
+            position: relative;
+        }
+        &__lable {
+            margin-bottom: 1px;
+            font-size: 1.5rem;
+        }
+        &__input {
+            height: 2.5rem;
+            font-size: 1.5rem;
+            border-radius: 5px;
+            border: none;
+            background-color: $color1;
+            padding: 5px 15px;
+            margin-bottom: 5px;
+            &:focus {
+                outline-color: $color4;
+                outline-style: solid;
+                outline-offset: 1px;
+                outline-width: 1px;
+                background-color: white;
+            }
+        }
+        &__link {
+            margin: 0;
+            font-size: 1.3rem;
+            font-family: Jura300;
+            width: fit-content;
+            height: 2.5rem;
+            margin-top: 5px;
+            &:hover {
+                cursor: pointer;
+                font-family: Jura700;
+                color: $color1;
+                text-decoration: underline;
+            }
+        }
+        &__submit {
+            margin-top: 25px;
+            margin-right: 25px;
+        }
+        &__hints {
+            z-index: 1;
+            background-color: $color4;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 26px;
+            border-radius: 10px;
+            height: fit-content;
+            max-height: 300px;
+            overflow: auto;
+            &-element {
+                font-size: 1.5rem;
+                margin: 10px;
+                color: white;
+                border-bottom: $color1 1px solid;
+                &:hover {
+                    font-family: Jura700;
+                    cursor: pointer;
+                    border-bottom: $color1 1px solid;
+                }
+            }
+        }
+    }
+
+    &__screen {
+        width: 100%;
+        max-width: 900px;
+        margin: auto;
+        margin-bottom: 50px;
+        .company {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+            align-items: center;
+            background-color: $color4;
+            color: $color1;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 5px;
+            
+            font-family: $fontMain700;
+            font-size: 2.5rem;
+        
+            &__img {
+                width: 75px;
+                height: 75px;
+                border-radius: 1rem;
+                flex: 0 0 75px;
+            }
+            &__cost {
+                flex: 1 0 0.5em;
+                text-align: center;
+            }
+            &__time {
+                flex: 1 0 0.5em;
+                text-align: center;
+            }
+            &__link {
+                text-decoration: none;
+                flex: 0 1 275px;
+                @media (max-width: 650px) {
+                    flex: 0 0 100%;
+                    margin-top: 15px;
+                }
+            }
+            &__button {
+                flex: 0 1 275px;
+                @media (max-width: 650px) {
+                    flex: 0 0 100%;
+                    margin-top: 15px;
+                }
+            }
+        }
+    }
+}

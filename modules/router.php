@@ -26,6 +26,9 @@ if ($request_path == '') {
 } else if ($request_path == 'api/kit/add_idkladr') {
     $controller = new \Controllers\Admin();
     $controller->addKitRecord();
+}   else if ($request_path == 'api/energy/get_cities') {
+    $controller = new \Models\TransportCompanies\Energy();
+    $controller->get_cities_all();
 } else if ($request_path == 'api/calculate-delivery') {
     $controller = new \Controllers\Calculator();
     $controller->calculateDelivery();

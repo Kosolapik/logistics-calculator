@@ -19,12 +19,23 @@ namespace Models\TransportCompanies {
 
             $arr['fromLocalityId'] = $db->getRecords('id_kladr', $data['fromLocality']['id']) ? $db->getRecords('id_kladr', $data['fromLocality']['id']) : 000;
             $arr['whereLocalityId'] = $db->getRecords('id_kladr', $data['whereLocality']['id']) ? $db->getRecords('id_kladr', $data['whereLocality']['id']) : 000;
-            $arr['length'] = round((pow(($data['volume']/$data['quantity']), 1/3) * 2.25), 2);
-            $arr['width'] = round((pow(($data['volume']/$data['quantity']/(pow(($data['volume']/$data['quantity']), 1/3) * 2.25)), 1/2)), 2);
-            $arr['height'] = round((pow(($data['volume']/$data['quantity']/(pow(($data['volume']/$data['quantity']), 1/3) * 2.25)), 1/2)), 2);
+
+            if ($data['volume'] && $data['quantity']) {
+                $arr['length'] = round((pow(($data['volume']/$data['quantity']), 1/3) * 2.25), 2);
+                $arr['width'] = round((pow(($data['volume']/$data['quantity']/(pow(($data['volume']/$data['quantity']), 1/3) * 2.25)), 1/2)), 2);
+                $arr['height'] = round((pow(($data['volume']/$data['quantity']/(pow(($data['volume']/$data['quantity']), 1/3) * 2.25)), 1/2)), 2);
+                $arr['maxSize'] = round((pow(($data['volume']/$data['quantity']), 1/3) * 2.25), 2);
+            } else {
+                $arr['length'] = 0;
+                $arr['width'] = 0;
+                $arr['height'] = 0;
+                $arr['maxSize'] = 0;
+            }
+
+
             $arr['quantity'] = $data['quantity'];
             $arr['volume'] = $data['volume'];
-            $arr['maxSize'] = round((pow(($data['volume']/$data['quantity']), 1/3) * 2.25), 2);
+
             $arr['weight'] = $data['weight'];
             $arr['price'] = $data['price'];
             $arr['typeCargo'] = $data['type-cargo'];

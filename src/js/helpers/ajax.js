@@ -1,4 +1,4 @@
-
+// пример объекта с параметрами запроса
 // let params = {
 //     method: 'post',
 //     url: 'http://logist-master/api/calculate-delivery',
@@ -45,8 +45,6 @@ export class Ajax {
             this.ajax.open(this.method, this.url);
             this.ajax.send();
         }
-
-        
 
         if (this.method == 'post') {
             this.ajax.open(this.method, this.url);

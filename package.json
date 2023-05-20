@@ -30,7 +30,6 @@
   },
   "homepage": "https://github.com/StarkElessar/gulp-2022#readme",
   "devDependencies": {
-    "browser-sync": "^2.27.7",
     "del": "^6.0.0",
     "fs": "^0.0.1-security",
     "gulp": "^4.0.2",

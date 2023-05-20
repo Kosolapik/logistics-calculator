@@ -27,6 +27,7 @@ export const js = () => {
         message: 'Error: <%= error.message %>',
       })
     ))
+    .pipe(app.plugins.replace(/@img\//g, '../resources/images/')) // не работает
     .pipe(webpack({
       mode: app.isBuild ? 'production' : 'development',
       entry: arr,

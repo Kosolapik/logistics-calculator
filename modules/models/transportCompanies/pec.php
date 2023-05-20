@@ -17,6 +17,11 @@ namespace Models\TransportCompanies {
          * @var string
          */
         static private $url = 'https://kabinet.pecom.ru/api/v1/';
+        /**
+         * Сайт ТК
+         * @var string
+         */
+        static $website = 'https://pecom.ru/services-are/shipping-request/';
 
         /**
          * выполняет запрос в ПЭК
@@ -147,7 +152,7 @@ namespace Models\TransportCompanies {
             $params = [
                 "senderCityId" =>  $fromLocalityId[0]['code'], // Код города отправителя [Number]
                 "receiverCityId" =>  $whereLocalityId[0]['code'], // Код города получателя [Number]
-                "calcDate" =>  "2023-02-27", // расчетная дата [Date]
+                "calcDate" =>  "2023-01-28", // расчетная дата [Date]
                 "isInsurance" =>  true, // Страхование [Boolean]
                 "isInsurancePrice" =>  $price, // Оценочная стоимость, руб [Number]
                 "isPickUp" =>  false, // Нужен забор [Boolean]
@@ -169,6 +174,7 @@ namespace Models\TransportCompanies {
 
             $res = $this->call('calculator', 'calculateprice', $params);
             $arrCalc['company'] = 'pec';
+            $arrCalc['website'] = self::$website;
             if (key_exists('error', $res)) {
                 $arrCalc['errors'] = $res['error'];
             } else {
@@ -177,7 +183,7 @@ namespace Models\TransportCompanies {
                     'time' => $res['commonTerms'][0]['transporting'],
                 ];
             }
-            // var_dump($res);
+
             return $arrCalc;
         }
     }

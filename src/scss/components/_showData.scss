@@ -1,12 +1,12 @@
 .showData {
-    border: 1px #364F53 solid;
+    border: 1px $color4 solid;
     border-radius: 10px;
     margin: auto;
     max-width: 1008px;
     width: auto;
     height: fit-content;
     min-height: 300px;
-    background-color: #364F53;
+    background-color: $color4;
     padding: 10px 25px;
 }
 
@@ -109,3 +109,4 @@
         }
     }
 }
+

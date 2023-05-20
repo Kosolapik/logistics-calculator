@@ -12,6 +12,11 @@ namespace Models\TransportCompanies {
          * @var string
          */
         static $baseUrl = 'https://capi.tk-kit.com';
+        /**
+         * Сайт ТК
+         * @var string
+         */
+        static $website = 'https://tk-kit.com/order-one';
 
         /**
          * выполняет запрос в КИТ
@@ -125,6 +130,7 @@ namespace Models\TransportCompanies {
             $res = $this->call('/1.0/order/calculate', $params);
 
             $arrCalc['company'] = 'kit';
+            $arrCalc['website'] = self::$website;
             if (key_exists('validate', $res)) {
                 $arrCalc['errors'] = $res['validate'];
             } else {
@@ -134,7 +140,6 @@ namespace Models\TransportCompanies {
                 ];
             }
             return $arrCalc;
-            // return $res;
         }
     }
 }
